@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author WIN
  */
-public class MainController implements Initializable {
+public class MainController extends SceneSwitcher implements Initializable {
 
     /**
      * Initializes the controller class.

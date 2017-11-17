@@ -6,9 +6,15 @@
 package factorymanager;
 
 import javafx.application.Application;
+import static javafx.application.Application.STYLESHEET_MODENA;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -19,9 +25,11 @@ public class FactoryManager extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(new Parent() {});
+        
+        SceneSwitcher.setScene(scene);
+        SceneSwitcher.switchScene("Login");
         
         stage.setScene(scene);
         stage.show();
