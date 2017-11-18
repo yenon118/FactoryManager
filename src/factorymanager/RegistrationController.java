@@ -65,7 +65,7 @@ public class RegistrationController extends SceneSwitcher implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        connection = (Connection) LoginController.getConnection();
+//        connection = (Connection) LoginController.getConnection();
     }    
 
     @FXML
@@ -73,6 +73,7 @@ public class RegistrationController extends SceneSwitcher implements Initializab
         SceneSwitcher.switchScene("Login");
         LoginController loginController = (LoginController) getControllerBySceneName("Login");
         loginController.clearAllLoginTextFields();
+        loginController.checkDatabaseConnection();
     }
 
     @FXML
@@ -130,6 +131,7 @@ public class RegistrationController extends SceneSwitcher implements Initializab
                     SceneSwitcher.switchScene("Login");
                     LoginController loginController = (LoginController) getControllerBySceneName("Login");
                     loginController.clearAllLoginTextFields();
+                    loginController.checkDatabaseConnection();
 
                 } catch (SQLException ex) {
                     Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,5 +156,10 @@ public class RegistrationController extends SceneSwitcher implements Initializab
         zipCode.clear();
         invalidTextInTextField.setText("");
     }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+    
     
 }

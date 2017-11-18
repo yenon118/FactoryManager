@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
  */
 public abstract class SceneSwitcher {
     
+    private static Stage stage;
     private Parent root;
     private static Scene scene;
     private static final HashMap<String, SceneSwitcher> controllers = new HashMap<>();
@@ -30,11 +32,29 @@ public abstract class SceneSwitcher {
             controller = add(sceneName);
             if(scene != null){
                 scene.setRoot(controller.getRoot());
+                if(sceneName.equals("Login")){
+                    stage.setTitle("Login");
+                }
+                else if(sceneName.equals("Registration")){
+                    stage.setTitle("Registration");
+                }
+                else if(sceneName.equals("Main")){
+                    stage.setTitle("Factory Manager");
+                }
             }
         }
         else{
             if(scene != null){
                 scene.setRoot(controller.getRoot());
+                if(sceneName.equals("Login")){
+                    stage.setTitle("Login");
+                }
+                else if(sceneName.equals("Registration")){
+                    stage.setTitle("Registration");
+                }
+                else if(sceneName.equals("Main")){
+                    stage.setTitle("Factory Manager");
+                }
             }
         }
     }
@@ -76,5 +96,14 @@ public abstract class SceneSwitcher {
     public static SceneSwitcher getControllerBySceneName(String sceneName) {
         return controllers.get(sceneName);
     }
+
+    public static void setStage(Stage stage) {
+        SceneSwitcher.stage = stage;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+    
     
 }

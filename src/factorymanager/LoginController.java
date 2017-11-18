@@ -53,6 +53,9 @@ public class LoginController extends SceneSwitcher implements Initializable {
     private static final String dbPassword = "masterpass1234";
     private String jdbcUrl;    
 
+    private static boolean validConnection;
+    //private static User user;
+    
     
     /**
      * Initializes the controller class.
@@ -60,13 +63,14 @@ public class LoginController extends SceneSwitcher implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //user = new User();
         checkDatabaseConnection();
     }    
 
     @FXML
     private void clickSubmitButton(ActionEvent event) {
         try {
-            String query = "SELECT Username, Password FROM Registration WHERE Username = ? AND Password = PASSWORD(?)";
+            String query = "SELECT * FROM Registration WHERE Username = ? AND Password = PASSWORD(?)";
             PreparedStatement dbPreparedStatement = connection.prepareStatement(query);
             dbPreparedStatement.setString(1, username.getText());
             dbPreparedStatement.setString(2, password.getText());
@@ -74,6 +78,16 @@ public class LoginController extends SceneSwitcher implements Initializable {
             boolean hasResult = dbResultSet.next();
             
             if(hasResult == true){
+                User.setRegistrationID(Integer.parseInt(dbResultSet.getString(1)));
+                User.setUsername(dbResultSet.getString(2));
+                User.setEmail(dbResultSet.getString(3));
+                User.setFirstName(dbResultSet.getString(5));
+                User.setLastName(dbResultSet.getString(6));
+                User.setCompanyName(dbResultSet.getString(7));
+                User.setAddress(dbResultSet.getString(8));
+                User.setCity(dbResultSet.getString(9));
+                User.setState(dbResultSet.getString(10));
+                User.setZipCode(Integer.parseInt(dbResultSet.getString(11)));
                 connection.close();
                 SceneSwitcher.switchScene("Main");
             }
@@ -92,11 +106,14 @@ public class LoginController extends SceneSwitcher implements Initializable {
         SceneSwitcher.switchScene("Registration");
         RegistrationController registrationController = (RegistrationController) getControllerBySceneName("Registration");
         registrationController.clearAllRegistrationTextFields();
-        
+        registrationController.setConnection(connection);
     }
     
-    private void checkDatabaseConnection(){
-        if(connectToDatabase()){
+    public void checkDatabaseConnection(){
+        
+        validConnection = connectToDatabase();
+        
+        if(validConnection == true || connection != null){
             databaseConnectionLabel.setText("Database Connection Success");
             databaseConnectionLabel.setTextFill(Color.GREEN);
         }
@@ -107,14 +124,17 @@ public class LoginController extends SceneSwitcher implements Initializable {
     }
     
     private boolean connectToDatabase(){
-        if(connection == null){
-            try {
+        try {
+            if(connection == null || connection.isClosed()){
                 jdbcUrl = "jdbc:" + driver + "://" + hostname + ":" + port + "/" + dbName + "?user=" + dbUsername + "&password=" + dbPassword;
                 connection = (Connection) DriverManager.getConnection(jdbcUrl);
                 return true;
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -128,5 +148,11 @@ public class LoginController extends SceneSwitcher implements Initializable {
         password.clear();
         invalidLoginText.setText("");
     }
+
+//    public static User getUser() {
+//        return user;
+//    }
+    
+    
     
 }

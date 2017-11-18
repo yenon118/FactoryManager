@@ -7,8 +7,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="factorymanager.MainController">
-    <stylesheets>
-        <URL value="@main.css"/>
-    </stylesheets>
-</AnchorPane>
+<VBox prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="factorymanager.MainController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="logOutMenuItem" mnemonicParsing="false" onAction="#clickLogOutMenuItem" text="Log Out" />
+              <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#clickCloseMenuItem" text="Close" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Display">
+              <items>
+                <MenuItem fx:id="userInfoMenuItem" mnemonicParsing="false" onAction="#clickUserInfoMenuItem" text="User Info" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#clickAboutMenuItem" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</VBox>
