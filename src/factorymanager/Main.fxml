@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -17,17 +18,47 @@
               <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#clickCloseMenuItem" text="Close" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Display">
-              <items>
-                <MenuItem fx:id="userInfoMenuItem" mnemonicParsing="false" onAction="#clickUserInfoMenuItem" text="User Info" />
-              </items>
-            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
+                <MenuItem fx:id="userInfoMenuItem" mnemonicParsing="false" onAction="#clickUserInfoMenuItem" text="User Info" />
               <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#clickAboutMenuItem" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="800.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="750.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="importationButton" alignment="CENTER" mnemonicParsing="false" onAction="#clickImportationButton" prefWidth="100.0" text="Importation" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="deliveryButton" alignment="CENTER" mnemonicParsing="false" onAction="#clickDeliveryButton" prefWidth="100.0" text="Delivery" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="exportationButton" alignment="CENTER" mnemonicParsing="false" onAction="#clickExportationButton" prefWidth="100.0" text="Exportation" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </GridPane>
    </children>
 </VBox>

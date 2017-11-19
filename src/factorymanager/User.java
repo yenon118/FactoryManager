@@ -5,8 +5,14 @@
  */
 package factorymanager;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -109,10 +115,14 @@ public class User {
     }
     
     public void showUserInfo(){
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("User Information");
-        alert.setHeaderText("Show User Information");
-        alert.setContentText("Username: " + User.getUsername() + "\n" + 
+        
+        String userInfoStageTitle = "User Information";
+        Stage userInfoStage = new Stage();
+        VBox userInfoRoot = new VBox();
+        userInfoRoot.setAlignment(Pos.TOP_CENTER);
+        Label userInfoLabel = new Label();
+        userInfoLabel.setAlignment(Pos.CENTER_LEFT);
+        userInfoLabel.setText("Username: " + User.getUsername() + "\n" + 
                                 "Email: " + User.getEmail() + "\n" + 
                                 "First Name: " + User.getFirstName() + "\n" + 
                                 "Last Name: " + User.getLastName() + "\n" + 
@@ -120,8 +130,23 @@ public class User {
                                 "Address: " + User.getAddress() + "\n" + 
                                 "City: " + User.getCity() + "\n" + 
                                 "State: " + User.getState() + "\n" + 
-                                "Zip Code: " + User.getZipCode() + "\n");
-        alert.showAndWait();
+                                "Zip Code: " + User.getZipCode() + "\n\n\n\n");
+        Button userInfoButton = new Button();
+        userInfoButton.setText("OK");
+        userInfoButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                userInfoStage.close();
+            }
+        });
+        
+        userInfoRoot.getChildren().addAll(userInfoLabel, userInfoButton);
+        
+        Scene scene = new Scene(userInfoRoot, 400, 300);
+
+        userInfoStage.setTitle(userInfoStageTitle);
+        userInfoStage.setScene(scene);
+        userInfoStage.show();
     }
     
 }

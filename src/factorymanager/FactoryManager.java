@@ -24,8 +24,6 @@ import javafx.stage.WindowEvent;
  */
 public class FactoryManager extends Application {
     
-    
-    
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -53,6 +51,7 @@ public class FactoryManager extends Application {
                     if(connection != null || connection.isClosed() == false){
                         connection.close();
                         System.out.println("Database connection is closed.");
+                        MainController.destroyMainStages();
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(FactoryManager.class.getName()).log(Level.SEVERE, null, ex);

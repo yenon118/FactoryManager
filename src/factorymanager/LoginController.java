@@ -51,10 +51,7 @@ public class LoginController extends SceneSwitcher implements Initializable {
     private static final String dbName = "FactoryManager";
     private static final String dbUsername = "yenon118";
     private static final String dbPassword = "masterpass1234";
-    private String jdbcUrl;    
-
-    private static boolean validConnection;
-    //private static User user;
+    private String jdbcUrl;
     
     
     /**
@@ -63,7 +60,6 @@ public class LoginController extends SceneSwitcher implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //user = new User();
         checkDatabaseConnection();
     }    
 
@@ -90,6 +86,7 @@ public class LoginController extends SceneSwitcher implements Initializable {
                 User.setZipCode(Integer.parseInt(dbResultSet.getString(11)));
                 connection.close();
                 SceneSwitcher.switchScene("Main");
+                MainController.generateMainStages();
             }
             else{
                 clearAllLoginTextFields();
@@ -110,8 +107,7 @@ public class LoginController extends SceneSwitcher implements Initializable {
     }
     
     public void checkDatabaseConnection(){
-        
-        validConnection = connectToDatabase();
+        boolean validConnection = connectToDatabase();
         
         if(validConnection == true || connection != null){
             databaseConnectionLabel.setText("Database Connection Success");
@@ -148,11 +144,5 @@ public class LoginController extends SceneSwitcher implements Initializable {
         password.clear();
         invalidLoginText.setText("");
     }
-
-//    public static User getUser() {
-//        return user;
-//    }
-    
-    
     
 }

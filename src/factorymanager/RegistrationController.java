@@ -8,9 +8,7 @@ package factorymanager;
 import com.mysql.jdbc.Connection;
 import java.net.URL;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +63,6 @@ public class RegistrationController extends SceneSwitcher implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-//        connection = (Connection) LoginController.getConnection();
     }    
 
     @FXML
