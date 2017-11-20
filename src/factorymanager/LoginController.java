@@ -84,7 +84,7 @@ public class LoginController extends SceneSwitcher implements Initializable {
                 User.setCity(dbResultSet.getString(9));
                 User.setState(dbResultSet.getString(10));
                 User.setZipCode(Integer.parseInt(dbResultSet.getString(11)));
-                connection.close();
+                MainController.setConnection(connection);
                 SceneSwitcher.switchScene("Main");
                 MainController.generateMainStages();
             }

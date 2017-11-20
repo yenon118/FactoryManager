@@ -5,14 +5,22 @@
  */
 package factorymanager;
 
+import com.mysql.jdbc.Connection;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -53,21 +61,75 @@ public class ImportationController implements Initializable {
     private Button cancelButton;
     @FXML
     private Button submitButton;
-
+    
+    
+    private static Connection connection;
+    
+    private static Stage stage;
+//    private Parent root;
+    private static Scene scene;
+//    private FXMLLoader loader;
+    
+    private static ImportationInformationController importationInformationController;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
 
     @FXML
     private void clickCancelButton(ActionEvent event) {
+        try {
+            Parent root = (Parent)FXMLLoader.load(getClass().getResource("ImportationInformation.fxml"));
+            
+            scene.setRoot(root);
+            stage.setScene(scene);
+            stage.setTitle("Importation Information");
+            stage.sizeToScene();
+            stage.centerOnScreen();
+                        
+            importationInformationController.fillTable();
+                                    
+        } catch (IOException ex) {
+            Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void clickSubmitButton(ActionEvent event) {
+        try {
+            Parent root = (Parent)FXMLLoader.load(getClass().getResource("ImportationInformation.fxml"));
+            
+            scene.setRoot(root);
+            stage.setScene(scene);
+            stage.setTitle("Importation Information");
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            
+            importationInformationController.fillTable();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    public static void setupView(Stage stage, Scene scene) {
+        ImportationController.stage = stage;
+        ImportationController.scene = scene;
+    }
+
+    public static void setConnection(Connection connection) {
+        ImportationController.connection = connection;
+    }
+
+    public static void setImportationInformationController(ImportationInformationController importationInformationController) {
+        ImportationController.importationInformationController = importationInformationController;
+    }
+    
+    
     
 }

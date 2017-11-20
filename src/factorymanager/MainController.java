@@ -54,9 +54,23 @@ public class MainController extends SceneSwitcher implements Initializable {
     private Button exportationButton;
     
     
+    private static Connection connection;
+    
     private static Stage importationStage;
     private static Stage exportationStage;
     private static Stage deliveryStage;
+    
+    private static Parent importationRoot;
+    private static Parent deliveryRoot;
+    private static Parent exportationRoot;
+    
+    private static Scene importationScene;
+    private static Scene deliveryScene;
+    private static Scene exportationScene;
+    
+    private static FXMLLoader importationLoader;
+    private static FXMLLoader deliveryLoader;
+    private static FXMLLoader exportationLoader;
             
     /**
      * Initializes the controller class.
@@ -74,7 +88,6 @@ public class MainController extends SceneSwitcher implements Initializable {
         loginController.clearAllLoginTextFields();
         loginController.checkDatabaseConnection();
         destroyMainStages();
-        
     }
 
     @FXML
@@ -140,21 +153,33 @@ public class MainController extends SceneSwitcher implements Initializable {
     private void clickImportationButton(ActionEvent event) {
         if(importationStage.isShowing() == false){
             try {
-                FXMLLoader importationLoader = new FXMLLoader(getClass().getResource("Importation.fxml"));
-                Parent importationRoot = (Parent)importationLoader.load();
-                ImportationController importationController = (ImportationController)importationLoader.getController();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ImportationInformation.fxml"));
+                Parent root = (Parent)loader.load();
+                importationLoader = loader;
+                importationRoot = root;
 
-                Scene importationScene = new Scene(importationRoot);
+                importationScene.setRoot(importationRoot);
                 importationStage.setScene(importationScene);
-
+                importationStage.setTitle("Importation Information");
                 importationStage.show();
-
-//                importationStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//                    @Override
-//                    public void handle(WindowEvent WindowEvent) {
-//                        importationStage.close();
-//                    }
-//                });
+                importationStage.centerOnScreen();
+                                
+                ImportationInformationController.setupView(importationStage, importationRoot, importationScene);
+                ImportationController.setupView(importationStage, importationScene);
+                ImportationInformationController.setConnection(connection);
+                ImportationController.setConnection(connection);
+                
+                ImportationInformationController importationInformationController = (ImportationInformationController) importationLoader.getController();
+                importationInformationController.fillTable();
+                
+                ImportationController.setImportationInformationController(importationInformationController);
+                                
+                importationStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent WindowEvent) {
+                        
+                    }
+                });
 
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,28 +189,63 @@ public class MainController extends SceneSwitcher implements Initializable {
 
     @FXML
     private void clickDeliveryButton(ActionEvent event) {
-        // put your implementation here
+        if(deliveryStage.isShowing() == false){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ImportationInformation.fxml"));
+                Parent root = (Parent)loader.load();
+                deliveryLoader = loader;
+                deliveryRoot = root;
+//                deliveryLoader.getClass().getResource("Exportation.fxml");
+//                deliveryRoot = (Parent)FXMLLoader.load(getClass().getResource("Exportation.fxml"));
+                
+                deliveryScene.setRoot(deliveryRoot);
+                deliveryStage.setScene(deliveryScene);
+                deliveryStage.setTitle("Delivery Information");
+                deliveryStage.show();
+                deliveryStage.centerOnScreen();
+                
+//                DeliveryInformationController.setupView(deliveryStage, deliveryRoot, deliveryScene);
+//                DeliveryController.setupView(deliveryStage, deliveryRoot, deliveryScene);
+                
+                deliveryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent WindowEvent) {
+                        
+                    }
+                });
+
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @FXML
     private void clickExportationButton(ActionEvent event) {
         if(exportationStage.isShowing() == false){
             try {
-                FXMLLoader exportationLoader = new FXMLLoader(getClass().getResource("Exportation.fxml"));
-                Parent exportationRoot = (Parent)exportationLoader.load();
-                ExportationController exportationController = (ExportationController)exportationLoader.getController();
-
-                Scene exportationScene = new Scene(exportationRoot);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ImportationInformation.fxml"));
+                Parent root = (Parent)loader.load();
+                exportationLoader = loader;
+                exportationRoot = root;
+//                exportationLoader.getClass().getResource("Exportation.fxml");
+//                exportationRoot = (Parent)FXMLLoader.load(getClass().getResource("Exportation.fxml"));
+                
+                exportationScene.setRoot(exportationRoot);
                 exportationStage.setScene(exportationScene);
-
+                exportationStage.setTitle("Exportation Information");
                 exportationStage.show();
-
-//                exportationStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//                    @Override
-//                    public void handle(WindowEvent WindowEvent) {
-//                        exportationStage.close();
-//                    }
-//                });
+                exportationStage.centerOnScreen();
+                
+//                ExportationInformationController.setupView(exportationStage, exportationRoot, exportationScene);
+//                ExportationController.setupView(exportationStage, exportationRoot, exportationScene);
+                
+                exportationStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent WindowEvent) {
+                        
+                    }
+                });
 
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,12 +264,36 @@ public class MainController extends SceneSwitcher implements Initializable {
     public static boolean generateMainStages(){
         if(importationStage == null){
             importationStage = new Stage();
-        }
-        if(exportationStage == null){
-            exportationStage = new Stage();
+            importationLoader = new FXMLLoader();
+            if(importationRoot == null){
+                importationRoot = new Parent() {};
+            }
+            if(importationScene == null){
+                importationScene = new Scene(importationRoot);
+            }
+            importationStage.setScene(importationScene);
         }
         if(deliveryStage == null){
             deliveryStage = new Stage();
+            deliveryLoader = new FXMLLoader();
+            if(deliveryRoot == null){
+                deliveryRoot = new Parent() {};
+            }
+            if(deliveryScene == null){
+                deliveryScene = new Scene(deliveryRoot);
+            }
+            deliveryStage.setScene(deliveryScene);
+        }
+        if(exportationStage == null){
+            exportationStage = new Stage();
+            exportationLoader = new FXMLLoader();
+            if(exportationRoot == null){
+                exportationRoot = new Parent() {};
+            }
+            if(exportationScene == null){
+                exportationScene = new Scene(exportationRoot);
+            }
+            exportationStage.setScene(exportationScene);
         }
         if(importationStage != null && exportationStage != null && deliveryStage != null){
             return true;
@@ -223,24 +307,55 @@ public class MainController extends SceneSwitcher implements Initializable {
             if(importationStage.isShowing()){
                 importationStage.close();
             }
-            importationStage = null;
-        }
-        if(exportationStage != null){
-            if(exportationStage.isShowing()){
-                exportationStage.close();
+            if(importationLoader != null){
+                importationLoader = null;
             }
-            exportationStage = null;
+            if(importationScene != null){
+                importationScene = null;
+            }
+            if(importationRoot != null){
+                importationRoot = null;
+            }
+            importationStage = null;
         }
         if(deliveryStage != null){
             if(deliveryStage.isShowing()){
                 deliveryStage.close();
             }
+            if(deliveryLoader != null){
+                deliveryLoader = null;
+            }
+            if(deliveryScene != null){
+                deliveryScene = null;
+            }
+            if(deliveryRoot != null){
+                deliveryRoot = null;
+            }
             deliveryStage = null;
+        }
+        if(exportationStage != null){
+            if(exportationStage.isShowing()){
+                exportationStage.close();
+            }
+            if(exportationLoader != null){
+                exportationLoader = null;
+            }
+            if(exportationScene != null){
+                exportationScene = null;
+            }
+            if(exportationRoot != null){
+                exportationRoot = null;
+            }
+            exportationStage = null;
         }
         if(importationStage == null && exportationStage == null && deliveryStage == null){
             return true;
         }
         return false;
+    }
+
+    public static void setConnection(Connection connection) {
+        MainController.connection = connection;
     }
     
 }

@@ -10,8 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -25,8 +28,8 @@ public class ImportationDAL {
         this.connection = connection;
     }
     
-    public ArrayList<Importation> getImportationInventory(Integer registrationID){
-        ArrayList<Importation> importations = new ArrayList<>();
+    public ObservableList<ImportationModal> getImportationInventory(Integer registrationID){
+        ArrayList<ImportationModal> importations = new ArrayList<>();
         try {
             String query = "SELECT * FROM Importation WHERE RegistrationID = ?";
             PreparedStatement dbPreparedStatement = connection.prepareStatement(query);
@@ -34,7 +37,7 @@ public class ImportationDAL {
             ResultSet dbResultSet = dbPreparedStatement.executeQuery();
             
             while(dbResultSet.next()){
-                Importation importation = new Importation();
+                ImportationModal importation = new ImportationModal();
                 
                 importation.setImportationID(dbResultSet.getInt(1));
                 importation.setRegistrationID(dbResultSet.getInt(2));
@@ -51,7 +54,7 @@ public class ImportationDAL {
                 importation.setProduct(dbResultSet.getString(13));
                 importation.setPricePerUnit(dbResultSet.getDouble(14));
                 importation.setQuantity(dbResultSet.getInt(15));
-                importation.calculateTotal();
+                importation.setTotalPrice(importation.calculateTotal());
                 
                 importations.add(importation);
             }
@@ -59,7 +62,8 @@ public class ImportationDAL {
         }   catch (SQLException ex) {
             Logger.getLogger(ImportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return importations;
+        ObservableList<ImportationModal> observableList = FXCollections.observableList(importations);
+        return observableList;
     }
     
     

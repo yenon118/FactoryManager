@@ -7,6 +7,12 @@ package factorymanager;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.event.EventType;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -15,13 +21,12 @@ import java.util.ArrayList;
 public class ImportationBLL {
     
     private ImportationDAL importationDAL;
-
+    
     public ImportationBLL(Connection connection) {
         importationDAL = new ImportationDAL(connection);
     }
     
-    public ArrayList<Importation> getImportationInventory(Integer registrationID){
+    public ObservableList<ImportationModal> getImportationInventory(Integer registrationID){
         return importationDAL.getImportationInventory(registrationID);
     }
-    
 }

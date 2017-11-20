@@ -6,12 +6,13 @@
 package factorymanager;
 
 import java.util.Date;
+import javafx.beans.property.IntegerProperty;
 
 /**
  *
  * @author WIN
  */
-public class Importation implements Transaction{
+public class ImportationModal implements Transaction{
     
     private Integer importationID;
     private Integer registrationID;
@@ -154,6 +155,14 @@ public class Importation implements Transaction{
 
     public Integer getQuantity() {
         return quantity;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
     
 }
