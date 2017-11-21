@@ -6,13 +6,8 @@
 package factorymanager;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+
 
 /**
  *
@@ -28,5 +23,21 @@ public class ImportationBLL {
     
     public ObservableList<ImportationModal> getImportationInventory(Integer registrationID){
         return importationDAL.getImportationInventory(registrationID);
+    }
+    
+    public void addImportationRecord(Integer registrationID, String companyName, String pointOfContact, Integer countryCode, 
+                                    Long phoneNumber, String email, String address, String city, String state, Integer zipCode, 
+                                    String date, String product, Double pricePerUnit, Integer quantity){
+        importationDAL.addImportationRecord(registrationID, companyName, pointOfContact, countryCode, phoneNumber, email, 
+                                            address, city, state, zipCode, date, product, pricePerUnit, quantity);
+        
+    }
+    
+    public void deleteImportationRecord(Integer importationID){
+        importationDAL.deleteImportationRecord(importationID);
+    }
+    
+    public void updateImportationRecord(ImportationModal importation){
+        importationDAL.updateImportationRecord(importation);
     }
 }
