@@ -65,29 +65,27 @@ public class ImportationDAL {
         return observableList;
     }
     
-    public void addImportationRecord(Integer registrationID, String companyName, String pointOfContact, Integer countryCode, Long phoneNumber, 
-                                    String email, String address, String city, String state, Integer zipCode, String date, String product, 
-                                    Double pricePerUnit, Integer quantity){
+    public void addImportationRecord(ImportationModal importation){
         try {
             String query = "INSERT INTO Importation (RegistrationID, CompanyName, PointOfContact, CountryCode, PhoneNumber, Email, Address, City, State, ZipCode, CurrentDate, Product, PricePerUnit, Quantity)"
                             + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement dbPreparedStatement = connection.prepareStatement(query);
             
-            dbPreparedStatement.setInt(1, registrationID);
-            dbPreparedStatement.setString(2, companyName);
-            dbPreparedStatement.setString(3, pointOfContact);
-            dbPreparedStatement.setInt(4, countryCode);
-            dbPreparedStatement.setLong(5, phoneNumber);
-            dbPreparedStatement.setString(6, email);
-            dbPreparedStatement.setString(7, address);
-            dbPreparedStatement.setString(8, city);
-            dbPreparedStatement.setString(9, state);
-            dbPreparedStatement.setInt(10, zipCode);
-            dbPreparedStatement.setString(11, date);
-            dbPreparedStatement.setString(12, product);
-            dbPreparedStatement.setDouble(13, pricePerUnit);
-            dbPreparedStatement.setInt(14, quantity);
+            dbPreparedStatement.setInt(1, importation.getRegistrationID());
+            dbPreparedStatement.setString(2, importation.getCompanyName());
+            dbPreparedStatement.setString(3, importation.getPointOfContact());
+            dbPreparedStatement.setInt(4, importation.getCountryCode());
+            dbPreparedStatement.setLong(5, importation.getPhoneNumber());
+            dbPreparedStatement.setString(6, importation.getEmail());
+            dbPreparedStatement.setString(7, importation.getAddress());
+            dbPreparedStatement.setString(8, importation.getCity());
+            dbPreparedStatement.setString(9, importation.getState());
+            dbPreparedStatement.setInt(10, importation.getZipCode());
+            dbPreparedStatement.setString(11, importation.getCurrentDate().toString());
+            dbPreparedStatement.setString(12, importation.getProduct());
+            dbPreparedStatement.setDouble(13, importation.getPricePerUnit());
+            dbPreparedStatement.setInt(14, importation.getQuantity());
 
             dbPreparedStatement.execute();
 
@@ -98,7 +96,7 @@ public class ImportationDAL {
     
     public void deleteImportationRecord(Integer importationID){
         try {
-            String query = "DELETE FROM Importation WHERE importationID = ?";
+            String query = "DELETE FROM Importation WHERE ImportationID = ?";
             
             PreparedStatement dbPreparedStatement = connection.prepareStatement(query);
             

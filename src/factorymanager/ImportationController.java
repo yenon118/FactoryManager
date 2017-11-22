@@ -7,7 +7,10 @@ package factorymanager;
 
 import com.mysql.jdbc.Connection;
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -154,12 +157,26 @@ public class ImportationController implements Initializable {
                 }
                 else{
                     ImportationBLL importationBLL = new ImportationBLL(connection);
-
-                    importationBLL.addImportationRecord(User.getRegistrationID(), companyName.getText(), pointOfContact.getText(), 
-                                                        Integer.parseInt(countryCode.getText()), Long.parseLong(phoneNumber.getText()), 
-                                                        email.getText(), address.getText(), city.getText(), state.getText(), 
-                                                        Integer.parseInt(zipCode.getText()), date.getValue().toString(), product.getText(), 
-                                                        Double.parseDouble(pricePerUnit.getText()), Integer.parseInt(quantity.getText()));
+                    ImportationModal importationForTransfer = new ImportationModal();
+                    
+//                    importationForTransfer.setImportationID(importation.getImportationID());
+                    importationForTransfer.setRegistrationID(User.getRegistrationID());
+                    importationForTransfer.setCompanyName(companyName.getText());
+                    importationForTransfer.setPointOfContact(pointOfContact.getText());
+                    importationForTransfer.setCountryCode(Integer.parseInt(countryCode.getText()));
+                    importationForTransfer.setPhoneNumber(Long.parseLong(phoneNumber.getText()));
+                    importationForTransfer.setEmail(email.getText());
+                    importationForTransfer.setAddress(address.getText());
+                    importationForTransfer.setCity(city.getText());
+                    importationForTransfer.setState(state.getText());
+                    importationForTransfer.setZipCode(Integer.parseInt(zipCode.getText()));
+                    importationForTransfer.setCurrentDate(java.sql.Date.valueOf(date.getValue()));
+                    importationForTransfer.setProduct(product.getText());
+                    importationForTransfer.setPricePerUnit(Double.parseDouble(pricePerUnit.getText()));
+                    importationForTransfer.setQuantity(Integer.parseInt(quantity.getText()));
+                    importationForTransfer.setTotalPrice(importationForTransfer.calculateTotal());
+                    
+                    importationBLL.addImportationRecord(importationForTransfer);
                 }
                 stage.setScene(importationInformationScene);
                 importationInformationController.fillTable();
@@ -216,6 +233,10 @@ public class ImportationController implements Initializable {
     }
     
     public void setupAllImportationFields(ImportationModal importation){
+        Instant instant = Instant.ofEpochMilli(importation.getCurrentDate().getTime());
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        LocalDate localDate = localDateTime.toLocalDate();
+        
         companyName.setText(importation.getCompanyName());
         pointOfContact.setText(importation.getPointOfContact());
         email.setText(importation.getEmail());
@@ -225,7 +246,7 @@ public class ImportationController implements Initializable {
         city.setText(importation.getCity());
         state.setText(importation.getState());
         zipCode.setText(importation.getZipCode().toString());
-        date.setValue(LocalDate.now());
+        date.setValue(localDate);
         product.setText(importation.getProduct());
         pricePerUnit.setText(importation.getPricePerUnit().toString());
         quantity.setText(importation.getQuantity().toString());

@@ -12,31 +12,19 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -55,7 +43,7 @@ public class ImportationInformationController implements Initializable {
     @FXML
     private TableColumn<ImportationModal, Integer> countryCodeColumn;
     @FXML
-    private TableColumn<ImportationModal, Integer> phoneNumberColumn;
+    private TableColumn<ImportationModal, Long> phoneNumberColumn;
     @FXML
     private TableColumn<ImportationModal, String> emailColumn;
     @FXML
@@ -103,7 +91,6 @@ public class ImportationInformationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
     }    
 
     @FXML

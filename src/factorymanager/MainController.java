@@ -168,7 +168,7 @@ public class MainController extends SceneSwitcher implements Initializable {
                 
                 controller.setupView(importationStage);
                 controller.fillTable();
-                         
+                
                 importationStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent WindowEvent) {
@@ -219,21 +219,21 @@ public class MainController extends SceneSwitcher implements Initializable {
     private void clickExportationButton(ActionEvent event) {
         if(exportationStage.isShowing() == false){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ImportationInformation.fxml"));
-                Parent root = (Parent)loader.load();
-                exportationInformationLoader = loader;
-                exportationInformationRoot = root;
-//                exportationLoader.getClass().getResource("Exportation.fxml");
-//                exportationRoot = (Parent)FXMLLoader.load(getClass().getResource("Exportation.fxml"));
-                
-                exportationInformationScene.setRoot(exportationInformationRoot);
+                exportationInformationLoader = new FXMLLoader(getClass().getResource("ExportationInformation.fxml"));
+                exportationInformationRoot = (Parent) exportationInformationLoader.load();
+                ExportationInformationController controller = (ExportationInformationController) exportationInformationLoader.getController();
+                exportationInformationScene = new Scene(exportationInformationRoot);
                 exportationStage.setScene(exportationInformationScene);
+                                
                 exportationStage.setTitle("Exportation Information");
                 exportationStage.show();
                 exportationStage.centerOnScreen();
                 
-//                ExportationInformationController.setupView(exportationStage, exportationRoot, exportationScene);
-//                ExportationController.setupView(exportationStage, exportationRoot, exportationScene);
+                ExportationInformationController.setConnection(connection);
+                ExportationController.setConnection(connection);
+                
+                controller.setupView(exportationStage);
+                controller.fillTable();
                 
                 exportationStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
@@ -247,15 +247,7 @@ public class MainController extends SceneSwitcher implements Initializable {
             }
         }
     }
-
-    public Stage getImportationStage() {
-        return importationStage;
-    }
-
-    public Stage getExportationStage() {
-        return exportationStage;
-    }
-    
+        
     public static boolean generateMainStages(){
         if(importationStage == null){
             importationStage = new Stage();

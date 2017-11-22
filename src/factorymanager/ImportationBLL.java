@@ -25,11 +25,8 @@ public class ImportationBLL {
         return importationDAL.getImportationInventory(registrationID);
     }
     
-    public void addImportationRecord(Integer registrationID, String companyName, String pointOfContact, Integer countryCode, 
-                                    Long phoneNumber, String email, String address, String city, String state, Integer zipCode, 
-                                    String date, String product, Double pricePerUnit, Integer quantity){
-        importationDAL.addImportationRecord(registrationID, companyName, pointOfContact, countryCode, phoneNumber, email, 
-                                            address, city, state, zipCode, date, product, pricePerUnit, quantity);
+    public void addImportationRecord(ImportationModal importation){
+        importationDAL.addImportationRecord(importation);
         
     }
     

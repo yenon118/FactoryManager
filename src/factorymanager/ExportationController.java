@@ -6,6 +6,7 @@
 package factorymanager;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +54,10 @@ public class ExportationController implements Initializable {
     private Button cancelButton;
     @FXML
     private Button submitButton;
-
+    
+    
+    private static Connection connection;
+    
     /**
      * Initializes the controller class.
      */
@@ -68,6 +72,10 @@ public class ExportationController implements Initializable {
 
     @FXML
     private void clickSubmitButton(ActionEvent event) {
+    }
+
+    public static void setConnection(Connection connection) {
+        ExportationController.connection = connection;
     }
     
 }
