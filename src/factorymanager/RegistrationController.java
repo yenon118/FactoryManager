@@ -7,11 +7,7 @@ package factorymanager;
 
 import com.mysql.jdbc.Connection;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -107,31 +103,30 @@ public class RegistrationController extends SceneSwitcher implements Initializab
         }
         else{
             if(connection != null){
-                try {
-                    String query = "INSERT INTO Registration (Username, Email, Password, FirstName, LastName, CompanyName, Address, City, State, ZipCode)"
-                                    + " VALUES (?, ?, PASSWORD(?), ?, ?, ?, ?, ?, ?, ?)";
-
-                    PreparedStatement dbPreparedStatement = connection.prepareStatement(query);
-                    dbPreparedStatement.setString(1, username.getText());
-                    dbPreparedStatement.setString(2, email.getText());
-                    dbPreparedStatement.setString(3, password.getText());
-                    dbPreparedStatement.setString(4, firstName.getText());
-                    dbPreparedStatement.setString(5, lastName.getText());
-                    dbPreparedStatement.setString(6, companyName.getText());
-                    dbPreparedStatement.setString(7, address.getText());
-                    dbPreparedStatement.setString(8, city.getText());
-                    dbPreparedStatement.setString(9, state.getText());
-                    dbPreparedStatement.setInt(10, Integer.parseInt(zipCode.getText()));
-
-                    dbPreparedStatement.execute();
-
-                    SceneSwitcher.switchScene("Login");
-                    LoginController loginController = (LoginController) getControllerBySceneName("Login");
-                    loginController.clearAllLoginTextFields();
-                    loginController.checkDatabaseConnection();
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+                RegistrationBLL registrationBLL = new RegistrationBLL(connection);
+                
+                RegistrationModal regiatration = new RegistrationModal();
+                
+                regiatration.setUsername(username.getText());
+                regiatration.setEmail(email.getText());
+                regiatration.setPassword(password.getText());
+                regiatration.setFirstName(firstName.getText());
+                regiatration.setLastName(lastName.getText());
+                regiatration.setCompanyName(companyName.getText());
+                regiatration.setAddress(address.getText());
+                regiatration.setCity(city.getText());
+                regiatration.setState(state.getText());
+                regiatration.setZipCode(Integer.parseInt(zipCode.getText()));
+                
+                boolean validAddRecord = registrationBLL.addRegistrationRecord(regiatration);
+                
+                SceneSwitcher.switchScene("Login");
+                LoginController loginController = (LoginController) getControllerBySceneName("Login");
+                loginController.clearAllLoginTextFields();
+                loginController.checkDatabaseConnection();
+                
+                if(validAddRecord == false){
+                    loginController.setInvalidRegistration();
                 }
             }
             else{
