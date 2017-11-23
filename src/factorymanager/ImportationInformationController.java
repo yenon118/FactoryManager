@@ -119,7 +119,7 @@ public class ImportationInformationController implements Initializable {
 
     @FXML
     private void clickEditRecordButton(ActionEvent event) {
-                
+        
         if(importationTableView.getSelectionModel().getSelectedItem() != null){
             
             ImportationModal importation = new ImportationModal();
@@ -164,7 +164,6 @@ public class ImportationInformationController implements Initializable {
                 Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-//            fillTable();
         }
     }
     
@@ -192,7 +191,6 @@ public class ImportationInformationController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     public void setupView(Stage stage) {

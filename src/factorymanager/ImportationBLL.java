@@ -27,7 +27,6 @@ public class ImportationBLL {
     
     public void addImportationRecord(ImportationModal importation){
         importationDAL.addImportationRecord(importation);
-        
     }
     
     public void deleteImportationRecord(Integer importationID){

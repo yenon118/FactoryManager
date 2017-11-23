@@ -130,7 +130,7 @@
                   <Insets left="30.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="date" prefWidth="350.0" />
+            <DatePicker fx:id="date" prefWidth="350.0" />
             <Label text="Product: ">
                <HBox.margin>
                   <Insets left="90.0" />

@@ -5,10 +5,13 @@
  */
 package factorymanager;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,7 +80,7 @@ public class ExportationInformationController implements Initializable {
     private Scene exportationScene;
     private Scene exportationInformationScene;
     private FXMLLoader exportationLoader;
-    private ImportationController exportationController;
+    private ExportationController exportationController;
 
     /**
      * Initializes the controller class.
@@ -112,10 +115,78 @@ public class ExportationInformationController implements Initializable {
 
     @FXML
     private void clickEditRecordButton(ActionEvent event) {
+        
+        if(exportationTableView.getSelectionModel().getSelectedItem() != null){
+            
+            ExportationModal exportation = new ExportationModal();
+            
+            exportation.setExportationID(exportationTableView.getSelectionModel().getSelectedItem().getExportationID());
+            exportation.setRegistrationID(exportationTableView.getSelectionModel().getSelectedItem().getRegistrationID());
+            exportation.setCompanyName(exportationTableView.getSelectionModel().getSelectedItem().getCompanyName());
+            exportation.setPointOfContact(exportationTableView.getSelectionModel().getSelectedItem().getPointOfContact());
+            exportation.setCountryCode(exportationTableView.getSelectionModel().getSelectedItem().getCountryCode());
+            exportation.setPhoneNumber(exportationTableView.getSelectionModel().getSelectedItem().getPhoneNumber());
+            exportation.setEmail(exportationTableView.getSelectionModel().getSelectedItem().getEmail());
+            exportation.setAddress(exportationTableView.getSelectionModel().getSelectedItem().getAddress());
+            exportation.setCity(exportationTableView.getSelectionModel().getSelectedItem().getCity());
+            exportation.setState(exportationTableView.getSelectionModel().getSelectedItem().getState());
+            exportation.setZipCode(exportationTableView.getSelectionModel().getSelectedItem().getZipCode());
+            exportation.setCurrentDate(exportationTableView.getSelectionModel().getSelectedItem().getCurrentDate());
+            exportation.setProduct(exportationTableView.getSelectionModel().getSelectedItem().getProduct());
+            exportation.setPricePerUnit(exportationTableView.getSelectionModel().getSelectedItem().getPricePerUnit());
+            exportation.setQuantity(exportationTableView.getSelectionModel().getSelectedItem().getQuantity());
+            exportation.setTotalPrice(exportationTableView.getSelectionModel().getSelectedItem().getTotalPrice());
+            
+            try {
+                if(exportationScene == null){
+                    exportationLoader = new FXMLLoader(getClass().getResource("Exportation.fxml"));
+                    exportationRoot = (Parent)exportationLoader.load();
+                    exportationController = exportationLoader.getController();
+
+                    exportationController.setStage(stage);
+                    exportationController.setExportationInformationScene(exportationInformationScene);
+                    exportationController.setExportationInformationController(this);
+
+                    exportationScene = new Scene(exportationRoot);
+                }
+
+                exportationController.setupAllExportationFields(exportation);
+                stage.setScene(exportationScene);
+                stage.setTitle("Importation");
+                stage.sizeToScene();
+                stage.centerOnScreen();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }
 
     @FXML
     private void clickAddRecordButton(ActionEvent event) {
+        try {
+            if(exportationScene == null){
+                exportationLoader = new FXMLLoader(getClass().getResource("Exportation.fxml"));
+                exportationRoot = (Parent)exportationLoader.load();
+                exportationController = exportationLoader.getController();
+
+                exportationController.setStage(stage);
+                exportationController.setExportationInformationScene(exportationInformationScene);
+                exportationController.setExportationInformationController(this);
+
+                exportationScene = new Scene(exportationRoot);
+            }
+            
+            exportationController.clearAllExportationFields();
+            stage.setScene(exportationScene);
+            stage.setTitle("Exportation");
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void setupView(Stage stage) {
