@@ -152,7 +152,7 @@ public class ExportationInformationController implements Initializable {
 
                 exportationController.setupAllExportationFields(exportation);
                 stage.setScene(exportationScene);
-                stage.setTitle("Importation");
+                stage.setTitle("Exportation");
                 stage.sizeToScene();
                 stage.centerOnScreen();
 

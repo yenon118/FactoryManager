@@ -40,8 +40,8 @@ public class RegistrationDAL {
         try {            
             jdbcUrl = "jdbc:" + driver + "://" + hostname + ":" + port + "/" + dbName + "?user=" + dbUsername + "&password=" + dbPassword;
             connection = (com.mysql.jdbc.Connection) DriverManager.getConnection(jdbcUrl);            
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(RegistrationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return connection;
     }
@@ -79,8 +79,8 @@ public class RegistrationDAL {
                 return false;
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(RegistrationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -111,8 +111,8 @@ public class RegistrationDAL {
             else{
                 return false;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(RegistrationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

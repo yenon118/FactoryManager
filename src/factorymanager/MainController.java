@@ -186,22 +186,22 @@ public class MainController extends SceneSwitcher implements Initializable {
     private void clickDeliveryButton(ActionEvent event) {
         if(deliveryStage.isShowing() == false){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ImportationInformation.fxml"));
-                Parent root = (Parent)loader.load();
-                deliveryInformationLoader = loader;
-                deliveryInformationRoot = root;
-//                deliveryLoader.getClass().getResource("Exportation.fxml");
-//                deliveryRoot = (Parent)FXMLLoader.load(getClass().getResource("Exportation.fxml"));
-                
-                deliveryInformationScene.setRoot(deliveryInformationRoot);
+                deliveryInformationLoader = new FXMLLoader(getClass().getResource("DeliveryInformation.fxml"));
+                deliveryInformationRoot = (Parent)deliveryInformationLoader.load();
+                DeliveryInformationController controller = (DeliveryInformationController) deliveryInformationLoader.getController();
+                deliveryInformationScene = new Scene(deliveryInformationRoot);
                 deliveryStage.setScene(deliveryInformationScene);
+                
                 deliveryStage.setTitle("Delivery Information");
                 deliveryStage.show();
                 deliveryStage.centerOnScreen();
                 
-//                DeliveryInformationController.setupView(deliveryStage, deliveryRoot, deliveryScene);
-//                DeliveryController.setupView(deliveryStage, deliveryRoot, deliveryScene);
+                DeliveryInformationController.setConnection(connection);
+                DeliveryController.setConnection(connection);
                 
+                controller.setupView(deliveryStage);
+                controller.fillTable();
+                                
                 deliveryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent WindowEvent) {

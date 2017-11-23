@@ -58,8 +58,8 @@ public class ExportationDAL {
                 exportations.add(exportation);
             }
             
-        }   catch (SQLException ex) {
-            Logger.getLogger(ImportationDAL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ExportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         ObservableList<ExportationModal> observableList = FXCollections.observableList(exportations);
         return observableList;
@@ -90,7 +90,7 @@ public class ExportationDAL {
             dbPreparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -105,7 +105,7 @@ public class ExportationDAL {
             dbPreparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -136,7 +136,7 @@ public class ExportationDAL {
             dbPreparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

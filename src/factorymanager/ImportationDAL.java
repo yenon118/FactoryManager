@@ -58,7 +58,7 @@ public class ImportationDAL {
                 importations.add(importation);
             }
             
-        }   catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ImportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         ObservableList<ImportationModal> observableList = FXCollections.observableList(importations);
@@ -90,8 +90,8 @@ public class ImportationDAL {
             dbPreparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(ImportationDAL.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
     public void deleteImportationRecord(Integer importationID){
@@ -105,7 +105,7 @@ public class ImportationDAL {
             dbPreparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -136,7 +136,7 @@ public class ImportationDAL {
             dbPreparedStatement.execute();
 
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
