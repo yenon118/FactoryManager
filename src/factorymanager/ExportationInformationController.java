@@ -157,8 +157,8 @@ public class ExportationInformationController implements Initializable {
                 stage.centerOnScreen();
 
             } catch (IOException ex) {
-                Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                Logger.getLogger(ExportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
+            } 
             
         }
     }
@@ -185,8 +185,8 @@ public class ExportationInformationController implements Initializable {
             stage.centerOnScreen();
             
         } catch (IOException ex) {
-            Logger.getLogger(ImportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(ExportationInformationController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
     public void setupView(Stage stage) {

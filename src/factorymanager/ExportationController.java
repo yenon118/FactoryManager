@@ -218,6 +218,7 @@ public class ExportationController implements Initializable {
         pricePerUnit.clear();
         quantity.clear();
         invalidTextInTextField.setText("");
+        exportation=null;
     }
     
     public void setupAllExportationFields(ExportationModal exportation){

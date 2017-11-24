@@ -19,7 +19,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="100.0" />
          </VBox.margin>
       </Label>
-      <TableView fx:id="exportationTableView" editable="true">
+      <TableView fx:id="deliveryTableView" editable="true">
          <columns>
             <TableColumn fx:id="companyNameColumn" maxWidth="1.7976931348623157E308" prefWidth="180.0" text="Company Name" />
             <TableColumn fx:id="pointOfContactColumn" maxWidth="1.7976931348623157E308" prefWidth="180.0" text="Point of Contact" />

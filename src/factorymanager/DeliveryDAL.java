@@ -52,7 +52,7 @@ public class DeliveryDAL {
                 delivery.setZipCode(dbResultSet.getInt(12));
                 delivery.setCurrentDate(dbResultSet.getDate(13));
                 delivery.setContainerPricePerUnit(dbResultSet.getDouble(14));
-                delivery.setContainerQuantity(dbResultSet.getInt(16));
+                delivery.setContainerQuantity(dbResultSet.getInt(15));
                 delivery.setShipmentPrice(dbResultSet.getDouble(16));
                 delivery.setTotalPrice(delivery.calculateTotal());
                 
@@ -140,5 +140,7 @@ public class DeliveryDAL {
             Logger.getLogger(DeliveryDAL.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
+    
+    
     
 }

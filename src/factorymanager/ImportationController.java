@@ -230,6 +230,7 @@ public class ImportationController implements Initializable {
         pricePerUnit.clear();
         quantity.clear();
         invalidTextInTextField.setText("");
+        importation = null;
     }
     
     public void setupAllImportationFields(ImportationModal importation){

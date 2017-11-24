@@ -6,6 +6,7 @@
 package factorymanager;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import javafx.collections.ObservableList;
 
 /**
@@ -35,5 +36,6 @@ public class ExportationBLL {
     public void updateExportationRecord(ExportationModal exportation){
         exportationDAL.updateExportationRecord(exportation);
     }
+    
     
 }
