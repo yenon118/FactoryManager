@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -28,8 +29,9 @@
       </MenuBar>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="800.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="10.0" prefWidth="575.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="750.0" vgrow="SOMETIMES" />
@@ -63,7 +65,48 @@
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <ComboBox fx:id="yearComboBox" prefWidth="150.0" />
+                  <LineChart fx:id="lineChart" title="Factory Transaction Graph">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" />
+                    </yAxis>
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </LineChart>
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#clickRefreshButton" prefWidth="100.0" text="Refresh">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="100.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children></VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+               <children>
+                  <Label fx:id="earningLabel">
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="spendingLabel">
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="balanceLabel">
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

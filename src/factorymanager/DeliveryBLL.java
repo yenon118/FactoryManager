@@ -52,6 +52,7 @@ public class DeliveryBLL {
             for(int j=0; j<exportationList.size(); j++){
                 if(deliveryList.get(i).getExportationID().equals(exportationList.get(j).getExportationID())){
                     exportationList.remove(j);
+                    j--;
                 }
             }
         }

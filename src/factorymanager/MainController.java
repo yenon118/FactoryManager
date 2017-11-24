@@ -9,10 +9,15 @@ import com.mysql.jdbc.Connection;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,12 +27,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -52,7 +63,22 @@ public class MainController extends SceneSwitcher implements Initializable {
     private Button deliveryButton;
     @FXML
     private Button exportationButton;
-    
+    @FXML
+    private LineChart<?, ?> lineChart;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private Button refreshButton;
+    @FXML
+    private Label earningLabel;
+    @FXML
+    private Label spendingLabel;
+    @FXML
+    private Label balanceLabel;
+    @FXML
+    private ComboBox<String> yearComboBox;
     
     private static Connection connection;
     
@@ -71,6 +97,8 @@ public class MainController extends SceneSwitcher implements Initializable {
     private FXMLLoader importationInformationLoader;
     private FXMLLoader deliveryInformationLoader;
     private FXMLLoader exportationInformationLoader;
+    
+    
             
     /**
      * Initializes the controller class.
@@ -79,6 +107,9 @@ public class MainController extends SceneSwitcher implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         generateMainStages();
+        fillComboBox();
+        Calendar calendar = Calendar.getInstance();
+        updateMain(calendar.get(Calendar.YEAR));
     }    
 
     @FXML
@@ -148,7 +179,12 @@ public class MainController extends SceneSwitcher implements Initializable {
         User user = new User();
         user.showUserInfo();
     }
-
+    
+    @FXML
+    private void clickRefreshButton(ActionEvent event) {
+        updateMain(Integer.parseInt(yearComboBox.getSelectionModel().getSelectedItem()));
+    }
+    
     @FXML
     private void clickImportationButton(ActionEvent event) {
         if(importationStage.isShowing() == false){
@@ -292,6 +328,84 @@ public class MainController extends SceneSwitcher implements Initializable {
 
     public static void setConnection(Connection connection) {
         MainController.connection = connection;
+    }
+
+    private void updateMain(Integer year){
+        
+        BasicInformationBLL basicInformationBLL = new BasicInformationBLL(connection);
+        
+        BasicInformationModal basic = basicInformationBLL.processGraphDataByMonth(year);
+        
+        double[] earning = basic.getEarning();
+        double[] spending = basic.getSpending();
+        
+        XYChart.Series earningSeries = new XYChart.Series();
+        earningSeries.setName("Factory Earning");
+        
+        earningSeries.getData().add(new XYChart.Data("Jan", earning[0]));
+        earningSeries.getData().add(new XYChart.Data("Feb", earning[1]));
+        earningSeries.getData().add(new XYChart.Data("Mar", earning[2]));
+        earningSeries.getData().add(new XYChart.Data("Apr", earning[3]));
+        earningSeries.getData().add(new XYChart.Data("May", earning[4]));
+        earningSeries.getData().add(new XYChart.Data("Jun", earning[5]));
+        earningSeries.getData().add(new XYChart.Data("Jul", earning[6]));
+        earningSeries.getData().add(new XYChart.Data("Aug", earning[7]));
+        earningSeries.getData().add(new XYChart.Data("Sep", earning[8]));
+        earningSeries.getData().add(new XYChart.Data("Oct", earning[9]));
+        earningSeries.getData().add(new XYChart.Data("Nov", earning[10]));
+        earningSeries.getData().add(new XYChart.Data("Dec", earning[11]));
+        
+        XYChart.Series spendingSeries = new XYChart.Series();
+        spendingSeries.setName("Factory Spending");
+        
+        spendingSeries.getData().add(new XYChart.Data("Jan", spending[0]));
+        spendingSeries.getData().add(new XYChart.Data("Feb", spending[1]));
+        spendingSeries.getData().add(new XYChart.Data("Mar", spending[2]));
+        spendingSeries.getData().add(new XYChart.Data("Apr", spending[3]));
+        spendingSeries.getData().add(new XYChart.Data("May", spending[4]));
+        spendingSeries.getData().add(new XYChart.Data("Jun", spending[5]));
+        spendingSeries.getData().add(new XYChart.Data("Jul", spending[6]));
+        spendingSeries.getData().add(new XYChart.Data("Aug", spending[7]));
+        spendingSeries.getData().add(new XYChart.Data("Sep", spending[8]));
+        spendingSeries.getData().add(new XYChart.Data("Oct", spending[9]));
+        spendingSeries.getData().add(new XYChart.Data("Nov", spending[10]));
+        spendingSeries.getData().add(new XYChart.Data("Dec", spending[11]));
+        
+        lineChart.getData().clear();
+        lineChart.getData().addAll(earningSeries, spendingSeries);
+        
+        earningLabel.setText("Total Earning:  \n" + String.format("%#.2f", basic.getTotalEarning()));
+        earningLabel.setTextFill(Color.GREEN);
+        
+        spendingLabel.setText("Total Spending: \n-" + String.format("%#.2f", basic.getTotalSpending()));
+        spendingLabel.setTextFill(Color.RED);
+        
+        balanceLabel.setText("Balance:        \n" + String.format("%#.2f", basic.getBalance()));
+        if(basic.getBalance() < 0){
+            balanceLabel.setTextFill(Color.RED);
+        }
+        else{
+            balanceLabel.setTextFill(Color.GREEN);
+        }
+        
+    }
+    
+    private void fillComboBox(){
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        
+        int startYear = currentYear - 10;
+        int endYear = currentYear + 10;
+        
+        ArrayList<String> yearString = new ArrayList<>();
+        for(int i=startYear; i<endYear; i++){
+            yearString.add(Integer.toString(i));
+        }
+            
+        yearComboBox.getItems().clear();
+        yearComboBox.getItems().addAll(yearString);
+        
+        yearComboBox.getSelectionModel().select(10);
     }
     
 }
