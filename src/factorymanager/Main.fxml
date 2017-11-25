@@ -76,7 +76,7 @@
                       <NumberAxis fx:id="yAxis" side="LEFT" />
                     </yAxis>
                      <VBox.margin>
-                        <Insets top="100.0" />
+                        <Insets top="80.0" />
                      </VBox.margin>
                   </LineChart>
                   <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#clickRefreshButton" prefWidth="100.0" text="Refresh">

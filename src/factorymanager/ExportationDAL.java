@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -61,6 +62,7 @@ public class ExportationDAL {
         } catch (SQLException ex) {
             Logger.getLogger(ExportationDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Collections.sort(exportations, ExportationModal.sortExportationDate);
         ObservableList<ExportationModal> observableList = FXCollections.observableList(exportations);
         return observableList;
     }

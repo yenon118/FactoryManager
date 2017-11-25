@@ -5,6 +5,7 @@
  */
 package factorymanager;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -164,6 +165,11 @@ public class ImportationModal implements Transaction{
         this.totalPrice = totalPrice;
     }
 
-
+    public static Comparator<ImportationModal> sortImportationDate = new Comparator<ImportationModal>() {
+        @Override
+        public int compare(ImportationModal o1, ImportationModal o2) {
+            return o1.getCurrentDate().compareTo(o2.getCurrentDate());
+        }
+    };
     
 }

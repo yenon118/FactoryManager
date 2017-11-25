@@ -7,6 +7,7 @@ package factorymanager;
 
 import com.mysql.jdbc.Connection;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +65,10 @@ public class LoginController extends SceneSwitcher implements Initializable {
             MainController.setConnection(connection);
             SceneSwitcher.switchScene("Main");
             MainController.generateMainStages();
+            MainController mainController = (MainController) getControllerBySceneName("Main");
+            mainController.fillComboBox();
+            Calendar calendar = Calendar.getInstance();
+            mainController.updateMain(calendar.get(Calendar.YEAR));
         }
         else{
             clearAllLoginTextFields();

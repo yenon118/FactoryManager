@@ -78,7 +78,7 @@ public class MainController extends SceneSwitcher implements Initializable {
     @FXML
     private Label balanceLabel;
     @FXML
-    private ComboBox<String> yearComboBox;
+    private ComboBox<Integer> yearComboBox;
     
     private static Connection connection;
     
@@ -108,8 +108,7 @@ public class MainController extends SceneSwitcher implements Initializable {
         // TODO
         generateMainStages();
         fillComboBox();
-        Calendar calendar = Calendar.getInstance();
-        updateMain(calendar.get(Calendar.YEAR));
+        updateMain(yearComboBox.getSelectionModel().getSelectedItem());
     }    
 
     @FXML
@@ -182,7 +181,15 @@ public class MainController extends SceneSwitcher implements Initializable {
     
     @FXML
     private void clickRefreshButton(ActionEvent event) {
-        updateMain(Integer.parseInt(yearComboBox.getSelectionModel().getSelectedItem()));
+        if(yearComboBox.getSelectionModel().getSelectedItem() != null){
+            updateMain(yearComboBox.getSelectionModel().getSelectedItem());
+            
+            int selectedYear = yearComboBox.getSelectionModel().getSelectedItem();
+            
+            fillComboBox();
+            
+            yearComboBox.getSelectionModel().select(Integer.valueOf(selectedYear));
+        }
     }
     
     @FXML
@@ -330,7 +337,7 @@ public class MainController extends SceneSwitcher implements Initializable {
         MainController.connection = connection;
     }
 
-    private void updateMain(Integer year){
+    public void updateMain(Integer year){
         
         BasicInformationBLL basicInformationBLL = new BasicInformationBLL(connection);
         
@@ -390,22 +397,20 @@ public class MainController extends SceneSwitcher implements Initializable {
         
     }
     
-    private void fillComboBox(){
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
+    public void fillComboBox(){
         
-        int startYear = currentYear - 10;
-        int endYear = currentYear + 10;
+        BasicInformationBLL basicInformationBLL = new BasicInformationBLL(connection);
         
-        ArrayList<String> yearString = new ArrayList<>();
-        for(int i=startYear; i<endYear; i++){
-            yearString.add(Integer.toString(i));
-        }
-            
+        ArrayList<Integer> yearList = basicInformationBLL.getYearList();
+           
         yearComboBox.getItems().clear();
-        yearComboBox.getItems().addAll(yearString);
+        yearComboBox.getItems().addAll(yearList);
         
-        yearComboBox.getSelectionModel().select(10);
+        Calendar calendar = Calendar.getInstance();
+        Integer currentYear = calendar.get(Calendar.YEAR);
+        
+        yearComboBox.getSelectionModel().select(currentYear);
+        
     }
     
 }

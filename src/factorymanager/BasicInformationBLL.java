@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import javafx.collections.ObservableList;
 
@@ -87,5 +88,81 @@ public class BasicInformationBLL {
         
     }
     
+    
+    public ArrayList<Integer> getYearList(){
+        
+        ImportationBLL importationBLL = new ImportationBLL(connection);
+        DeliveryBLL deliveryBLL = new DeliveryBLL(connection);
+        ExportationBLL exportationBLL = new ExportationBLL(connection);
+        
+        
+        ObservableList<ImportationModal> importations = importationBLL.getImportationInventory(User.getRegistrationID());
+        ObservableList<DeliveryModal> deliveries = deliveryBLL.getDeliveryInventory(User.getRegistrationID());
+        ObservableList<ExportationModal> exportations = exportationBLL.getExportationInventory(User.getRegistrationID());
+        
+        ArrayList<Integer> yearList = new ArrayList<>();
+        
+        Calendar calendar = Calendar.getInstance();
+        
+        Integer tempYear = calendar.get(Calendar.YEAR);
+        yearList.add(tempYear);
+        
+        int check_flag = 0;
+        
+        for(int i=0; i<importations.size(); i++){
+            calendar.setTime(importations.get(i).getCurrentDate());
+            tempYear = calendar.get(Calendar.YEAR);
+            for(int j=0; j<yearList.size(); j++){
+                if(tempYear.equals(yearList.get(j))){
+                    check_flag++;
+                }
+            }
+            if(check_flag == 0){
+                yearList.add(tempYear);
+                check_flag=0;
+            }
+            else{
+                check_flag=0;
+            }
+        }
+        
+        for(int i=0; i<deliveries.size(); i++){
+            calendar.setTime(deliveries.get(i).getCurrentDate());
+            tempYear = calendar.get(Calendar.YEAR);
+            for(int j=0; j<yearList.size(); j++){
+                if(tempYear.equals(yearList.get(j))){
+                    check_flag++;
+                }
+            }
+            if(check_flag == 0){
+                yearList.add(tempYear);
+                check_flag=0;
+            }
+            else{
+                check_flag=0;
+            }
+        }
+        
+        for(int i=0; i<exportations.size(); i++){
+            calendar.setTime(exportations.get(i).getCurrentDate());
+            tempYear = calendar.get(Calendar.YEAR);
+            for(int j=0; j<yearList.size(); j++){
+                if(tempYear.equals(yearList.get(j))){
+                    check_flag++;
+                }
+            }
+            if(check_flag == 0){
+                yearList.add(tempYear);
+                check_flag=0;
+            }
+            else{
+                check_flag=0;
+            }
+        }
+        
+        Collections.sort(yearList);
+        
+        return yearList;
+    }
     
 }

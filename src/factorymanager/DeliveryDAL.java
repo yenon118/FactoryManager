@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -62,6 +63,7 @@ public class DeliveryDAL {
         } catch (SQLException ex) {   
             Logger.getLogger(DeliveryDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Collections.sort(deliveries, DeliveryModal.sortDeliveryDate);
         ObservableList<DeliveryModal> observableList = FXCollections.observableList(deliveries);
         return observableList;
     }
