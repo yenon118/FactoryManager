@@ -54,7 +54,7 @@ public class BasicInformationBLL {
         }
         for(int i=0; i<importations.size(); i++){
             calendar.setTime(importations.get(i).getCurrentDate());
-            earning[calendar.get(Calendar.MONTH)] = earning[calendar.get(Calendar.MONTH)] + importations.get(i).getTotalPrice();
+            spending[calendar.get(Calendar.MONTH)] = spending[calendar.get(Calendar.MONTH)] + importations.get(i).getTotalPrice();
         }
         
         for(int i=0; i<deliveries.size(); i++){
@@ -78,7 +78,7 @@ public class BasicInformationBLL {
         }
         for(int i=0; i<exportations.size(); i++){
             calendar.setTime(exportations.get(i).getCurrentDate());
-            spending[calendar.get(Calendar.MONTH)] = spending[calendar.get(Calendar.MONTH)] + exportations.get(i).getTotalPrice();
+            earning[calendar.get(Calendar.MONTH)] = earning[calendar.get(Calendar.MONTH)] + exportations.get(i).getTotalPrice();
         }
         
         basic.setEarning(earning);

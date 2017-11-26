@@ -107,8 +107,8 @@ public class MainController extends SceneSwitcher implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         generateMainStages();
-        fillComboBox();
-        updateMain(yearComboBox.getSelectionModel().getSelectedItem());
+//        fillComboBox();
+//        updateMain(yearComboBox.getSelectionModel().getSelectedItem());
     }    
 
     @FXML
