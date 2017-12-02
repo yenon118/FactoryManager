@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ycth8factorymanager.ImportationInformationController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Importation" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="100.0" />
+         </VBox.margin>
+      </Label>
+      <TableView fx:id="importationTableView" editable="true">
+        <columns>
+          <TableColumn fx:id="companyNameColumn" maxWidth="1.7976931348623157E308" prefWidth="180.0" text="Company Name" />
+          <TableColumn fx:id="pointOfContactColumn" maxWidth="1.7976931348623157E308" prefWidth="180.0" text="Point of Contact" />
+            <TableColumn fx:id="countryCodeColumn" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Country Code" />
+            <TableColumn fx:id="phoneNumberColumn" maxWidth="1.7976931348623157E308" prefWidth="180.0" text="Phone Number" />
+            <TableColumn fx:id="emailColumn" maxWidth="1.7976931348623157E308" prefWidth="180.0" text="Email" />
+            <TableColumn fx:id="addressColumn" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Address" />
+            <TableColumn fx:id="cityColumn" maxWidth="1.7976931348623157E308" prefWidth="100.0" text="City" />
+            <TableColumn fx:id="stateColumn" maxWidth="1.7976931348623157E308" prefWidth="100.0" text="State" />
+            <TableColumn fx:id="zipCodeColumn" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Zip Code" />
+            <TableColumn fx:id="dateColumn" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Date" />
+            <TableColumn fx:id="productColumn" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Product" />
+            <TableColumn fx:id="pricePerUnitColumn" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Price Per Unit" />
+            <TableColumn fx:id="quantityColumn" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Quantity" />
+            <TableColumn fx:id="totalPriceColumn" maxWidth="1.7976931348623157E308" prefWidth="150.0" text="Total Price" />
+        </columns>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="40.0" />
+         </VBox.margin>
+      </TableView>
+      <HBox alignment="CENTER_RIGHT">
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+         <children>
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#clickExitButton" prefWidth="120.0" text="Exit">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="deleteRecordButton" mnemonicParsing="false" onAction="#clickDeleteRecordButton" prefWidth="120.0" text="Delete Record">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="editRecordButton" mnemonicParsing="false" onAction="#clickEditRecordButton" prefWidth="120.0" text="Edit Record">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="addRecordButton" mnemonicParsing="false" onAction="#clickAddRecordButton" prefWidth="120.0" text="Add Record">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
