@@ -25,8 +25,8 @@ public class RegistrationDAL {
     private static final String hostname = "masterdbinstance.ckwkopdxavud.us-west-2.rds.amazonaws.com";
     private static final int port = 3306;
     private static final String dbName = "FactoryManager";
-    private static final String dbUsername = "yenon118";
-    private static final String dbPassword = "masterpass1234";
+    private static final String dbUsername = "";
+    private static final String dbPassword = "";
     private String jdbcUrl;
 
     public RegistrationDAL() {
