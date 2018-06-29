@@ -22,7 +22,7 @@ public class RegistrationDAL {
     private Connection connection;
     
     private static final String driver = "mysql";
-    private static final String hostname = "masterdbinstance.ckwkopdxavud.us-west-2.rds.amazonaws.com";
+    private static final String hostname = "";
     private static final int port = 3306;
     private static final String dbName = "FactoryManager";
     private static final String dbUsername = "";
