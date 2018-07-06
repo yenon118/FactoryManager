@@ -1,3 +1,7 @@
+##SHOW DATABASES;
+##USE FactoryManager;
+##SHOW TABLES;
+
 CREATE DATABASE FactoryManager;
 USE FactoryManager;
 
