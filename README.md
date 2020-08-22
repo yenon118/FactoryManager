@@ -1,5 +1,7 @@
 # Factory Manager
 
+This is a Java application which can record and organize data to help factory managers run their factories.
+
 <br /><br />
 If you like my work, you can support me by clicking the link below.    :smile:
 <br />
